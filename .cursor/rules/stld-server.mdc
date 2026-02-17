@@ -1,0 +1,36 @@
+---
+description: Java 后端代码规范 
+globs: ["stld-server/**"]
+priority: 5
+---
+
+
+# Java 后端规范
+
+## Controller 层
+- 每个登录方式对应一个独立的 Controller，命名如 `LoginByPasswordController`。
+- 每个接口方法命名清晰（如 `doLogin`, `sendCode`）。
+- 返回数据统一使用 Sa-Token 框架的 SaResult 类进行返回 JSON 结构数据。
+
+## Service 层
+- 尽量省略，直接写在 Controller 中（教学示例不需要过度分层）。
+- 若涉及复杂逻辑，可使用简单 Service，但必须注释说明。
+
+## 实体类
+- 极简，尽量只包含必要字段（如 `userId`, `name`, `password`）。
+- 使用 Lombok 简化 getter、setter、toString 等写法。
+
+## Sa-Token 使用
+- 在配置类中配置 SaTokenConfig，开启注解支持。
+- 登录：`StpUtil.login(userId)`。
+- 注销：`StpUtil.logout()`。
+- 鉴权：`StpUtil.checkLogin()`。
+- **关键代码必须添加中文注释**，解释 Sa-Token 方法的作用。
+
+## 错误处理
+- 使用全局异常处理器 `@RestControllerAdvice`，统一返回错误 JSON。
+
+## 代码风格
+- 缩进：4 空格
+- 命名：类名大驼峰，方法/变量小驼峰
+- 避免过度设计，尽量只写必要类和方法。

@@ -1,0 +1,65 @@
+---
+description: 项目整体概述与核心目标
+alwaysApply: true
+priority: 10
+---
+
+# Sa-Token-Login-Demos 项目规则
+
+
+## 项目目标
+这是一个**教学示例仓库**，旨在通过极简的代码演示各种登录方式下 Sa-Token 的整合与写法。每个登录方式独立为一个后端 Controller 和一个前端 HTML 页面。
+
+
+## 核心理念
+- **极简**：只写关键步骤，无关代码尽量省略。
+- **清晰**：代码注释详尽，目录结构直观，便于学习者快速理解。
+- **独立**：每种登录方式相互独立，互不干扰。
+
+
+## 整体技术栈
+
+项目采用前后端分离架构，前端和后端分别为一个独立的项目。
+
+### 后端
+- java 语言、Maven 项目。
+- SpringBoot v3.5.10
+- Sa-Token v1.44.0
+- Lombok
+- 其它一些必要框架...
+
+### 前端
+- 纯 HTML + CSS + JavaScript，不使用 Node.js 构建工具 
+- jQuery （负责 Ajax 通信）
+- 其它一些必要框架...
+
+
+## 项目目录结构
+
+``` js
+── sa-token-login-demos/
+	├── stld-server/                      // 后端代码（Spring Boot 项目）
+		├── src/main/java/com/pj/stld/       // 存放代码包 
+	    	├── controller/                      // 控制器层
+	    	├── services/                        // 业务逻辑层
+	    	├── mock/                            // 模拟层，模拟数据库查询数据 
+	    	├── model/                           // 实体类层（例如用户类 SysUser ）
+	    	├── config/                          // 配置类层，全局配置相关 
+	    	├── utils/                           // 工具类层 
+	    	├── StldApplication.java             // 启动类 
+		├── src/main/resources/              // 资源文件
+	    	├── application.yml                  // 配置文件 
+		├── pom.xml                          // 我不知道咋说，但是你应该懂这是干啥的 
+	├── stld-html/                        // 前端代码（纯 HTML 页面项目）
+		├── login-pages/                     // 存放所有登录页 
+		├── static/                          // 存放静态依赖文件 
+		    ├── css/                             // 存放 css 文件 
+		    ├── kj/                              // 存放需要用到的第三方框架依赖库文件 
+		    ├── sa.js                            // sa.js 是所有页面都需要引入的 js 文件，提供一些工具函数的封装 
+		├── index.html                       // 主页 （访问主页必须先登录，未登录时访问将被重定向到 “登录方式选择页”）
+		├── login-type-select.html           // 登录方式选择页 
+```
+
+
+## 项目代码整体准则
+- 后端和登录相关的 Controller 命名需以 `LoginBy` 开头，如 `LoginByPasswordController.java`；前端页面命名需与之一致，如 `login-by-password.html`。
