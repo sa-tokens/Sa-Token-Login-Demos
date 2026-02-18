@@ -10,7 +10,7 @@ priority: 5
 ## HTML
 - 每个 HTML 文件都包含完整的 `<head>` 和 `<body>` 结构。
 - 在 `<head>` 中通过 `<link>` 引入对应 CSS 文件、公共 CSS、以及 layer 的 CSS。
-- 在 `<body>` 结束前通过 `<script>` 引入 jQuery、layer、sa.js（**必须全部使用本地库文件，禁止使用 CDN**）。
+- 在 `<body>` 结束前通过 `<script>` 引入 jQuery、layer、sa.js（**尽量使用本地库文件，尽量不要使用 CDN**）。
 - 为了代码的简洁性、可读性，JavaScript 写在每个 html 的
 
 ## CSS

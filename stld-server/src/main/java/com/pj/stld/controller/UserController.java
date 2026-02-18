@@ -3,6 +3,8 @@ package com.pj.stld.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import com.pj.stld.model.SysUser;
+import com.pj.stld.utils.SessionConstants;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +33,11 @@ public class UserController {
     public SaResult info() {
         Object loginId = StpUtil.getLoginId();
         // 可从 Session 中取更多信息，各登录 Controller 登录成功后会写入
-        Object username = StpUtil.getSession().get("username");
-        Object loginTime = StpUtil.getSession().get("loginTime");
+        SysUser user = (SysUser) StpUtil.getSession().get(SessionConstants.USER);
+        Object loginTime = StpUtil.getSession().get(SessionConstants.LOGIN_TIME);
 
         Map<String, Object> data = new HashMap<>();
-        data.put("username", username != null ? username : loginId.toString());
+        data.put("username", user != null ? user.getName() : loginId.toString());
         data.put("loginTime", loginTime != null ? loginTime : "-");
         return SaResult.data(data);
     }
