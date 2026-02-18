@@ -9,8 +9,8 @@ priority: 5
 
 ## HTML
 - 每个 HTML 文件都包含完整的 `<head>` 和 `<body>` 结构。
-- 在 `<head>` 中通过 `<link>` 引入对应 CSS 文件及公共 CSS。
-- 在 `<body>` 结束前通过 `<script>` 引入 jQuery 和对应 JS 文件。
+- 在 `<head>` 中通过 `<link>` 引入对应 CSS 文件、公共 CSS、以及 layer 的 CSS。
+- 在 `<body>` 结束前通过 `<script>` 引入 jQuery、layer、sa.js（**必须全部使用本地库文件，禁止使用 CDN**）。
 - 为了代码的简洁性、可读性，JavaScript 写在每个 html 的
 
 ## CSS
@@ -21,8 +21,11 @@ priority: 5
 - 样式简洁，只做基本美化（居中、间距、配色），不追求复杂动效。追求的是让学习者一眼就能看懂代码结构。
 
 ## JavaScript
-- 每个页面都引入 jQuery 库。
-- 每个页面都引入 /stld-html/static/sa.js，这是公共 js 文件，提供一些工具函数封装。
+- 每个页面都必须引入以下三个库（**全部使用本地文件，禁止 CDN**）：
+  1. jQuery：`static/kj/jquery.min.js`
+  2. layer：`static/kj/layer/layer.js`（需在 head 中引入 `static/kj/layer/theme/default/layer.css`）
+  3. sa.js：`static/sa.js`，公共工具函数封装
+- 引入顺序：jQuery → layer → sa.js
 - 封装全局 Ajax 方法在 `sa.js` 中，统一处理错误提示。
 - 表单提交时阻止默认事件，通过 Ajax 提交，根据返回结果跳转或显示错误。
 - **关键步骤必须添加中文注释**。
@@ -42,5 +45,5 @@ sa.ajax('/role/get', { id: 1001 }, function(res){
 - 主页（index.html）：
     - 未登录时访问，重定向到登录方式选择页。
     - 登录时访问，展示登录人信息、登录时间，有注销按钮。
-- 登录方式选择页（login-type-select.html）：以卡片/按钮形式列出所有登录方式。供用户选择。
+- 登录方式选择页（login-select.html）：以卡片/按钮形式列出所有登录方式。供用户选择。
 - 登录页面：包含对应登录方式的表单。

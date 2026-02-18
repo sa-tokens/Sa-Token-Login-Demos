@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="static/css/common.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/kj/layer/theme/default/layer.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title">欢迎</h1>
+
+            <!-- 未登录时显示（检查前默认隐藏，由 JS 控制） -->
+            <div id="not-logged-in" class="info-section" style="display: none;">
+                <p>您尚未登录，正在跳转到登录页...</p>
+            </div>
+
+            <!-- 已登录时显示：登录人信息、登录时间、注销按钮 -->
+            <div id="logged-in" class="info-section" style="display: none;">
+                <div class="user-info">
+                    <p><strong>登录人：</strong><span id="user-name">-</span></p>
+                    <p><strong>登录时间：</strong><span id="login-time">-</span></p>
+                </div>
+                <button type="button" class="btn btn-default" id="btn-logout">注销</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库，禁止 CDN） -->
+    <script src="static/kj/jquery.min.js"></script>
+    <script src="static/kj/layer/layer.js"></script>
+    <script src="static/sa.js"></script>
+    <script>
+        // 页面加载时检查登录状态
+        $(function () {
+            // 调用后端接口获取当前用户信息（未登录会 401，sa.ajax 中已处理跳转）
+            sa.ajax('/api/user/info', {}, function (res) {
+                var data = res.data || {};
+                $('#user-name').text(data.username || data.name || '未知');
+                $('#login-time').text(data.loginTime || '-');
+                $('#logged-in').show();
+            });
+
+            // 注销按钮点击
+            $('#btn-logout').on('click', function () {
+                sa.ajax('/api/user/logout', {}, function () {
+                    window.location.href = 'login-select.html';
+                }, 'POST');
+            });
+        });
+    </script>
+</body>
+</html>

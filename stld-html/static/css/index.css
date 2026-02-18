@@ -1,0 +1,16 @@
+/**
+ * 主页 - 独立样式
+ */
+
+.info-section {
+    text-align: center;
+}
+
+.user-info {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.user-info p {
+    margin: 8px 0;
+}

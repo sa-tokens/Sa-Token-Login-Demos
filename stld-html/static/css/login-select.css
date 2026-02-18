@@ -1,0 +1,44 @@
+/**
+ * 登录方式选择页 - 独立样式
+ */
+
+.page-desc {
+    margin: 0 0 24px 0;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.login-type-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 登录方式项（后续每个登录方式一个链接/按钮） */
+.login-type-item {
+    display: block;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #1890ff;
+    text-decoration: none;
+    border: 1px solid #1890ff;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.login-type-item:hover {
+    background-color: #e6f7ff;
+}
+
+/* 占位提示（框架阶段使用） */
+.login-type-placeholder {
+    padding: 24px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+    background-color: #fafafa;
+    border-radius: 6px;
+    border: 1px dashed #d9d9d9;
+}

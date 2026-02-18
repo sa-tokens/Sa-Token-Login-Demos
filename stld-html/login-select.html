@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择登录方式 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="static/css/common.css">
+    <link rel="stylesheet" href="static/css/login-select.css">
+    <link rel="stylesheet" href="static/kj/layer/theme/default/layer.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title">选择登录方式</h1>
+            <p class="page-desc">请选择一种方式登录系统</p>
+
+            <!-- 登录方式列表（卡片/按钮形式） -->
+            <div class="login-type-list">
+                <!-- 后续添加具体登录方式入口，如：
+                <a href="login-pages/login-by-password.html" class="login-type-item">账号密码登录</a>
+                <a href="login-pages/login-by-captcha.html" class="login-type-item">图形验证码登录</a>
+                ... -->
+                <div class="login-type-placeholder">
+                    登录方式将在此处展示，每个方式对应 login-pages/ 下的一个页面
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库，禁止 CDN） -->
+    <script src="static/kj/jquery.min.js"></script>
+    <script src="static/kj/layer/layer.js"></script>
+    <script src="static/sa.js"></script>
+</body>
+</html>

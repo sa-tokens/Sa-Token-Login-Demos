@@ -32,8 +32,8 @@ priority: 10
 
 ### 前端
 - 纯 HTML + CSS + JavaScript，不使用 Node.js 构建工具 
-- jQuery （负责 Ajax 通信）
-- 其它一些必要框架...
+- jQuery（负责 Ajax 通信）、layer（弹窗/提示）、sa.js（公共工具封装）
+- **所有依赖库必须使用本地文件，禁止使用 CDN**
 
 
 ## 项目目录结构
@@ -56,10 +56,10 @@ priority: 10
 		├── login-pages/                     // 存放所有登录页 
 		├── static/                          // 存放静态依赖文件 
 		    ├── css/                             // 存放 css 文件 
-		    ├── kj/                              // 存放需要用到的第三方框架依赖库文件 
-		    ├── sa.js                            // sa.js 是所有页面都需要引入的 js 文件，提供一些工具函数的封装 
+		    ├── kj/                              // 存放 jQuery、layer 等第三方库（本地文件，禁止 CDN）
+		    ├── sa.js                            // 公共工具，所有页面都需引入 
 		├── index.html                       // 主页 （访问主页必须先登录，未登录时访问将被重定向到 “登录方式选择页”）
-		├── login-type-select.html           // 登录方式选择页 
+		├── login-select.html               // 登录方式选择页 
 ```
 
 
