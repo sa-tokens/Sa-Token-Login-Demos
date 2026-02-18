@@ -5,6 +5,13 @@ import cn.dev33.satoken.util.SaResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 全局异常处理器
+ * 统一处理异常并返回 JSON 格式错误信息
+ * 
+ * @author click33
+ * @since 2026-02-18
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

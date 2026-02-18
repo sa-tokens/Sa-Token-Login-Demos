@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Sa-Token 配置类：
  * 1) 开启注解鉴权（例如：{@link SaCheckLogin}）
+ * 
+ * @author click33
+ * @since 2026-02-18
  */
 @Configuration
 public class SaTokenConfigure {

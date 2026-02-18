@@ -14,6 +14,9 @@ import java.util.Map;
 /**
  * 用户相关接口（框架用）
  * 供前端 index.html 等页面调用，用于检查登录状态、获取用户信息、注销等
+ * 
+ * @author click33
+ * @since 2026-02-18
  */
 @RestController
 @RequestMapping("/api/user")
