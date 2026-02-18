@@ -33,7 +33,7 @@ priority: 10
 ### 前端
 - 纯 HTML + CSS + JavaScript，不使用 Node.js 构建工具 
 - jQuery（负责 Ajax 通信）、layer（弹窗/提示）、sa.js（公共工具封装）
-- **所有依赖库必须使用本地文件，禁止使用 CDN**
+- **所有依赖库必须使用本地文件，尽量不要使用 CDN**
 
 
 ## 项目目录结构
