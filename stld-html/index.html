@@ -11,15 +11,15 @@
 <body>
     <div class="page-container">
         <div class="card">
-            <h1 class="page-title">欢迎，你已登录成功</h1>
-
-            <!-- 未登录时显示（检查前默认隐藏，由 JS 控制） -->
+            <!-- 未登录时显示 -->
             <div id="not-logged-in" class="info-section" style="display: none;">
-                <p>您尚未登录，正在跳转到登录页...</p>
+                <h1 class="page-title">当前尚未登录</h1>
+                <button type="button" class="btn btn-primary" id="btn-go-login">去登录</button>
             </div>
 
-            <!-- 已登录时显示：当前用户完整信息、注销按钮 -->
+            <!-- 已登录时显示：欢迎语、账号信息、注销按钮 -->
             <div id="logged-in" class="info-section" style="display: none;">
+                <h1 class="page-title">欢迎，你已登录成功</h1>
                 <div class="user-info-card">
                     <div class="user-info-row"><span class="label">用户 ID</span><span class="value" id="user-id">-</span></div>
                     <div class="user-info-row"><span class="label">用户名</span><span class="value" id="user-name">-</span></div>
@@ -40,7 +40,7 @@
     <script>
         // 页面加载时检查登录状态
         $(function () {
-            // 调用后端 /acc/currUserInfo 获取当前用户信息（未登录会 401，sa.ajax 中已处理跳转）
+            // 调用后端 /acc/currUserInfo 获取当前用户信息
             sa.ajax('/acc/currUserInfo', {}, function (res) {
                 var u = res.data || {};
                 $('#user-id').text(u.id != null ? u.id : '-');
@@ -50,6 +50,16 @@
                 $('#user-phone').text(u.phone || '-');
                 $('#user-email').text(u.email || '-');
                 $('#logged-in').show();
+            }, {
+                success401: function () {
+                    // 未登录时显示「当前尚未登录」及【去登录】按钮
+                    $('#not-logged-in').show();
+                }
+            });
+
+            // 去登录按钮点击
+            $('#btn-go-login').on('click', function () {
+                window.location.href = 'login-select.html';
             });
 
             // 注销按钮点击
