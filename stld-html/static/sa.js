@@ -25,6 +25,28 @@ info: '升级部分API'
 })();
 
 
+// ===========================  Token 存储封装  =======================================
+(function(){
+    /**
+     * 保存 Token（登录成功后调用）
+     * @param {string} token -  token 字符串
+     */
+    sa.saveToken = function(token) {
+        if (token) {
+            localStorage.satoken = token;
+        }
+    };
+
+    /**
+     * 获取 Token（供 ajax 等请求携带）
+     * @returns {string} token 字符串，无则返回空字符串
+     */
+    sa.getToken = function() {
+        return sessionStorage.runAsToken || sessionStorage.satoken || localStorage.satoken || '';
+    };
+})();
+
+
 // ===========================  ajax的封装  ======================================= 
 (function(){
     
@@ -94,8 +116,7 @@ info: '升级部分API'
         cfg = sa.extendJson(cfg, defaultCfg);
         
         // 打印请求地址和参数, 以便调试 
-        // console.log("请求地址：" + cfg.baseUrl + url);
-        // console.log("请求参数：" + JSON.stringify(data));
+        console.log("请求：", cfg.baseUrl + url, JSON.stringify(data));
         
         // 开始显示loading图标 
         if(cfg.msg != null){
@@ -115,10 +136,10 @@ info: '升级部分API'
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
                 // 追加token
-                xhr.setRequestHeader('satoken', sessionStorage.runAsToken || sessionStorage.satoken || localStorage.satoken || '');
+                xhr.setRequestHeader('satoken', sa.getToken());
             },
             success: function(res){
-                // console.log('返回数据：', res);
+                console.log('返回：', res);
                 setTimeout(function() {
                     sa.hideLoading();
                     // 如果相应的处理函数存在
@@ -129,6 +150,7 @@ info: '升级部分API'
                 }, cfg.sleep);
             },
             error: function(xhr, type, errorThrown){
+                console.error('异常：', xhr);
                 setTimeout(function() {
                     sa.hideLoading();
                     return cfg.errorfn(xhr, type, errorThrown);

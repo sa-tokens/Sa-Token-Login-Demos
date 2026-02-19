@@ -19,6 +19,7 @@ priority: 5
 - 公共样式放在 `/stld-html/static/css/common.css`（如页面容器、按钮基础样式、错误提示）。
 - 使用类名选择器，命名语义化（如 `.login-container`, `.btn-submit`）。
 - 样式简洁，只做基本美化（居中、间距、配色），不追求复杂动效。追求的是让学习者一眼就能看懂代码结构。
+- **输入框、按钮、卡片等元素的圆角统一为 2px**（`border-radius: 2px`）。
 
 ## JavaScript
 - 每个页面都必须引入以下三个库（**全部使用本地文件，禁止 CDN**）：
@@ -27,6 +28,7 @@ priority: 5
   3. sa.js：`static/sa.js`，公共工具函数封装
 - 引入顺序：jQuery → layer → sa.js
 - 封装全局 Ajax 方法在 `sa.js` 中，统一处理错误提示。
+- **页面需要弹窗提示时，统一使用 sa.js 封装的方法**（如 `sa.msg`、`sa.ok`、`sa.error`、`sa.alert`、`sa.confirm`），尽量不要直接调用 `layer.xxx`。
 - 表单提交时阻止默认事件，通过 Ajax 提交，根据返回结果跳转或显示错误。
 - **关键步骤必须添加中文注释**。
 
