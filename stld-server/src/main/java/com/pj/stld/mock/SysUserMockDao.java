@@ -39,23 +39,23 @@ public class SysUserMockDao {
         // 用户2
         SysUser user2 = new SysUser();
         user2.setId(10002L);
-        user2.setName("wangwu");
+        user2.setName("lisi");
         user2.setPwd("123456");
         user2.setGender("女");
         user2.setAge(28);
         user2.setPhone("13800138002");
-        user2.setEmail("wangwu@sa.com");
+        user2.setEmail("lisi@sa.com");
         USER_LIST.add(user2);
 
         // 用户3
         SysUser user3 = new SysUser();
         user3.setId(10003L);
-        user3.setName("lisi");
+        user3.setName("wangwu");
         user3.setPwd("123456");
         user3.setGender("男");
         user3.setAge(30);
         user3.setPhone("13800138003");
-        user3.setEmail("lisi@sa.com");
+        user3.setEmail("wangwu@sa.com");
         USER_LIST.add(user3);
     }
 

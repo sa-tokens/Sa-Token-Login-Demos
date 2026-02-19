@@ -28,6 +28,12 @@ spring:
                     # 连接池中的最小空闲连接
                     min-idle: 0
 
+############## 教学示例自定义配置 ##############
+stld:
+  sms:
+    # 测试模式：为 true 时验证码固定为 123456，便于本地联调
+    test-mode: true
+
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
     # token 名称（同时也是 cookie 名称）

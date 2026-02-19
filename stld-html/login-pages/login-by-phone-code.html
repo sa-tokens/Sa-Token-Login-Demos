@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机号验证码登录 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="../static/kj/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/login-by-phone-code.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title">手机号验证码登录</h1>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="phone">手机号</label>
+                    <input type="tel" id="phone" name="phone" placeholder="请输入手机号" maxlength="11" required>
+                </div>
+                <div class="form-group">
+                    <label for="code">验证码</label>
+                    <div class="form-group-code">
+                        <input type="text" id="code" name="code" placeholder="请输入验证码" maxlength="6" required>
+                        <button type="button" id="btn-send-code" class="btn btn-default btn-code">获取验证码</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+
+            <p class="back-link"><a href="../login-select.html">← 返回选择其他登录方式</a></p>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库） -->
+    <script src="../static/kj/jquery.min.js"></script>
+    <script src="../static/kj/layer/layer.js"></script>
+    <script src="../static/sa.js"></script>
+    <script>
+        $(function () {
+            var timer = null;
+            var SMS_COOLDOWN_KEY = 'stld_sms_code_cooldown'; // localStorage key，刷新页面后倒计时依然有效
+
+            // 简单校验手机号格式（11 位，1 开头）
+            function isValidPhone(phone) {
+                return /^1[3-9]\d{9}$/.test(phone);
+            }
+
+            // 启动倒计时（剩余秒数、按钮元素）
+            function startCountdown(seconds, $btn) {
+                if (timer) clearInterval(timer);
+                $btn.prop('disabled', true);
+                var tick = function () {
+                    var remaining = Math.max(0, seconds);
+                    if (remaining <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        $btn.prop('disabled', false);
+                        $btn.text('获取验证码');
+                        localStorage.removeItem(SMS_COOLDOWN_KEY);
+                        return;
+                    }
+                    $btn.text(remaining + ' 秒后重发');
+                    seconds--;
+                };
+                tick(); // 立即执行一次
+                timer = setInterval(tick, 1000);
+            }
+
+            // 页面加载时恢复倒计时（刷新后依然有效）
+            function restoreCountdownIfNeeded() {
+                try {
+                    var raw = localStorage.getItem(SMS_COOLDOWN_KEY);
+                    if (!raw) return;
+                    var data = JSON.parse(raw);
+                    var expireAt = data.expireAt; // 过期时间戳（毫秒）
+                    var remaining = Math.ceil((expireAt - Date.now()) / 1000);
+                    if (remaining > 0) {
+                        startCountdown(remaining, $('#btn-send-code'));
+                    } else {
+                        localStorage.removeItem(SMS_COOLDOWN_KEY);
+                    }
+                } catch (e) {}
+            }
+            restoreCountdownIfNeeded();
+
+            // 获取验证码
+            $('#btn-send-code').on('click', function () {
+                var $btn = $('#btn-send-code');
+                if ($btn.prop('disabled')) return;
+
+                var phone = $('#phone').val().trim();
+                if (!phone) {
+                    sa.error('请先输入手机号');
+                    return;
+                }
+                if (!isValidPhone(phone)) {
+                    sa.error('请输入正确的手机号');
+                    return;
+                }
+
+                sa.ajax('/login/phone-code/sendCode', { phone: phone }, function () {
+                    sa.msg('当前为测试模式，验证码固定为 123456');
+                    var expireAt = Date.now() + 60 * 1000;
+                    localStorage.setItem(SMS_COOLDOWN_KEY, JSON.stringify({ phone: phone, expireAt: expireAt }));
+                    startCountdown(60, $btn);
+                }, {
+                    msg: '发送中...',
+                    success500: function (res) {
+                        sa.error(res.msg || '发送失败');
+                    }
+                });
+            });
+
+            // 阻止表单默认提交，通过 Ajax 提交
+            $('#login-form').on('submit', function (e) {
+                e.preventDefault();
+
+                var phone = $('#phone').val().trim();
+                var code = $('#code').val().trim();
+
+                if (!phone) {
+                    sa.error('请输入手机号');
+                    return;
+                }
+                if (!isValidPhone(phone)) {
+                    sa.error('请输入正确的手机号');
+                    return;
+                }
+                if (!code) {
+                    sa.error('请输入验证码');
+                    return;
+                }
+
+                sa.ajax('/login/phone-code/doLogin', { phone: phone, code: code }, function (res) {
+                    sa.saveToken(res.token);
+                    sa.msg('欢迎你：' + res.username);
+                    setTimeout(function () {
+                        window.location.href = '../index.html';
+                    }, 600);
+                }, {
+                    msg: '登录中...',
+                    success500: function (res) {
+                        sa.error(res.msg || '登录失败');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
