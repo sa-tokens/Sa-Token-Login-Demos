@@ -1,20 +1,17 @@
 package com.pj.stld.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.pj.stld.mock.SmsCodeMockService;
 import com.pj.stld.mock.SysUserMockDao;
 import com.pj.stld.model.SysUser;
 import com.pj.stld.utils.AjaxError;
-import com.pj.stld.utils.SessionConstants;
+import com.pj.stld.utils.LoginHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
@@ -75,13 +72,6 @@ public class LoginByPhoneCodeController {
             AjaxError.throwMsg("该手机号未注册");
         }
 
-        // Sa-Token 登录
-        StpUtil.login(user.getId());
-        StpUtil.getSession().set(SessionConstants.USER, user);
-        StpUtil.getSession().set(SessionConstants.LOGIN_TIME, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-
-        return SaResult.ok()
-            .set("token", StpUtil.getTokenValue())
-            .set("username", user.getName());
+        return LoginHelper.doLoginSuccess(user);
     }
 }

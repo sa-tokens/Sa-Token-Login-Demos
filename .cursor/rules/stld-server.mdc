@@ -20,6 +20,9 @@ priority: 5
 - 极简，尽量只包含必要字段（如 `userId`, `name`, `password`）。
 - 使用 Lombok 简化 getter、setter、toString 等写法。
 
+## 登录成功统一处理
+- **所有登录方式在验证通过后，必须调用 `LoginHelper.doLoginSuccess(user)`** 完成 Sa-Token 登录、Session 写入及返回标准结果，禁止重复编写登录成功逻辑。
+
 ## Sa-Token 使用
 - 在配置类中配置 SaTokenConfig，开启注解支持。
 - 登录：`StpUtil.login(userId)`。
