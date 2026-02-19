@@ -5,13 +5,9 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.pj.stld.model.SysUser;
 import com.pj.stld.utils.SessionConstants;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 用户相关接口（框架用）
@@ -22,7 +18,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/acc/")
-public class UserController {
+public class AccController {
 
     /**
      * 获取当前登录用户信息（返回当前 SysUser，pwd 字段脱敏）
