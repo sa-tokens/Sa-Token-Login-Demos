@@ -142,7 +142,9 @@ info: '升级部分API'
             success: function(res){
                 console.log('返回：', res);
                 setTimeout(function() {
-                    sa.hideLoading();
+                    if(cfg.msg != null){
+                        sa.hideLoading();
+                    }
                     // 如果相应的处理函数存在
                     if(cfg['success' + res.code] != undefined) {
                         return cfg['success' + res.code](res);
@@ -153,7 +155,9 @@ info: '升级部分API'
             error: function(xhr, type, errorThrown){
                 console.error('异常：', xhr);
                 setTimeout(function() {
-                    sa.hideLoading();
+                    if(cfg.msg != null){
+                        sa.hideLoading();
+                    }
                     return cfg.errorfn(xhr, type, errorThrown);
                 }, cfg.sleep);
             },

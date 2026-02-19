@@ -55,6 +55,13 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
+        <!-- Hutool 工具库：提供图形验证码生成（CircleCaptcha）等能力 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.43</version>
+        </dependency>
+
         <!-- Lombok：通过注解自动生成 getter/setter/toString 等样板代码，简化实体类编写 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

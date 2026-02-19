@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.regex.Pattern;
 
 /**
- * 手机号验证码登录
+ * 手机验证码登录
  *
  * @author click33
  * @since 2026-02-19

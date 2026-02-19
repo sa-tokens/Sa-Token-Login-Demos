@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图形验证码登录 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="../static/kj/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/login-by-captcha.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title">图形验证码登录</h1>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="name">账号</label>
+                    <input type="text" id="name" name="name" placeholder="请输入账号" required>
+                </div>
+                <div class="form-group">
+                    <label for="pwd">密码</label>
+                    <input type="password" id="pwd" name="pwd" placeholder="请输入密码" required>
+                </div>
+                <div class="form-group form-group-captcha">
+                    <label for="captchaCode">图形验证码</label>
+                    <div class="captcha-row">
+                        <input type="text" id="captchaCode" name="captchaCode" placeholder="请输入验证码" maxlength="4" required>
+                        <div class="captcha-img-wrap" id="captchaImgWrap" title="点击刷新">
+                            <img id="captchaImg" src="" alt="图形验证码">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">登录</button>
+            </form>
+
+            <p class="back-link"><a href="../login-select.html">← 返回选择其他登录方式</a></p>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库） -->
+    <script src="../static/kj/jquery.min.js"></script>
+    <script src="../static/kj/layer/layer.js"></script>
+    <script src="../static/sa.js"></script>
+    <script>
+        $(function () {
+            var captchaId = '';
+
+            // 加载验证码
+            function loadCaptcha() {
+                sa.ajax('/login/captcha/getCaptcha', {}, function (res) {
+                    captchaId = res.captchaId;
+                    $('#captchaImg').attr('src', res.imageBase64);
+                }, { type: 'get', msg: null });
+            }
+
+            // 首次加载验证码
+            loadCaptcha();
+
+            // 点击验证码图片刷新
+            $('#captchaImgWrap').on('click', function () {
+                loadCaptcha();
+            });
+
+            // 阻止表单默认提交，通过 Ajax 提交
+            $('#login-form').on('submit', function (e) {
+                e.preventDefault();
+
+                var name = $('#name').val().trim();
+                var pwd = $('#pwd').val();
+                var captchaCode = $('#captchaCode').val().trim();
+
+                if (!name || !pwd) {
+                    sa.error('请填写账号和密码');
+                    return;
+                }
+                if (!captchaCode) {
+                    sa.error('请输入图形验证码');
+                    return;
+                }
+                if (!captchaId) {
+                    sa.error('验证码已失效，请刷新后重试');
+                    loadCaptcha();
+                    return;
+                }
+
+                // 调用后端图形验证码登录接口
+                sa.ajax('/login/captcha/doLogin', {
+                    name: name,
+                    pwd: pwd,
+                    captchaId: captchaId,
+                    captchaCode: captchaCode
+                }, function (res) {
+                    // 登录成功：保存 token
+                    sa.saveToken(res.token);
+                    sa.msg('欢迎你：' + res.username);
+                    setTimeout(function () {
+                        window.location.href = '../index.html';
+                    }, 600);
+                }, {
+                    msg: '登录中...',
+                    success500: function (res) {
+                        sa.error(res.msg || '登录失败');
+                        // 验证码错误或过期时刷新验证码
+                        if (res.msg && (res.msg.indexOf('验证码') !== -1)) {
+                            loadCaptcha();
+                            $('#captchaCode').val('');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

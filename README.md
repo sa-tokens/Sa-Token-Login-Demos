@@ -20,8 +20,8 @@
 | 登录方式 | 后端 Controller | 前端页面 | 状态 |
 |----------|-----------------|----------|------|
 | 账号密码登录 | `LoginByPasswordController` | `login-by-password.html` | ✅ 已实现 |
-| 手机号验证码登录 | `LoginByPhoneCodeController` | `login-by-phone-code.html` | ✅ 已实现 |
-| 图形验证码登录 | - | - | 📋 待开发 |
+| 图形验证码登录 | `LoginByCaptchaController` | `login-by-captcha.html` | ✅ 已实现 |
+| 手机验证码登录 | `LoginByPhoneCodeController` | `login-by-phone-code.html` | ✅ 已实现 |
 | 邮箱验证码登录 | `LoginByEmailCodeController` | `login-by-email-code.html` | ✅ 已实现 |
 | 扫码登录 | - | - | 📋 待开发 |
 | 邮箱点击链接注册登录 | - | - | 📋 待开发 |
@@ -72,6 +72,7 @@ sa-token-login-demos/
 ├── stld-html/                      # 🖼️ 前端（纯 HTML）
 │   ├── login-pages/               # 各种登录页
 │   │   ├── login-by-password.html
+│   │   ├── login-by-captcha.html
 │   │   ├── login-by-phone-code.html
 │   │   └── login-by-email-code.html
 │   ├── static/
@@ -123,7 +124,7 @@ python -m http.server 8080
 
 登录方式选择页会展示**系统用户列表**，包含测试用的账号、密码、手机号等，便于本地联调。
 
-手机号验证码登录、邮箱验证码登录在 `stld.sms.test-mode: true`、`stld.email.test-mode: true` 时，验证码固定为 **123456**。
+手机验证码登录、邮箱验证码登录在 `stld.sms.test-mode: true`、`stld.email.test-mode: true` 时，验证码固定为 **123456**。
 
 ---
 
