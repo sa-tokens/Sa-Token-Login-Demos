@@ -5,6 +5,7 @@ import cn.dev33.satoken.util.SaResult;
 import com.pj.stld.mock.SmsCodeMockService;
 import com.pj.stld.mock.SysUserMockDao;
 import com.pj.stld.model.SysUser;
+import com.pj.stld.utils.AjaxError;
 import com.pj.stld.utils.SessionConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,15 +41,14 @@ public class LoginByPhoneCodeController {
      */
     @PostMapping("sendCode")
     public SaResult sendCode(@RequestParam String phone) {
-        if (phone == null || !PHONE_PATTERN.matcher(phone.trim()).matches()) {
-            return SaResult.error("请输入正确的手机号");
-        }
+        AjaxError.notIsNull(phone, "手机号不能为空");
         String trimmedPhone = phone.trim();
+        AjaxError.notTrue(!PHONE_PATTERN.matcher(trimmedPhone).matches(), "请输入正确的手机号");
 
         // 判断该手机号是否已注册
         SysUser user = sysUserMockDao.getByPhone(trimmedPhone);
         if (user == null) {
-            return SaResult.error("该手机号未注册，无法发送验证码");
+            AjaxError.throwMsg("该手机号未注册，无法发送验证码");
         }
 
         smsCodeMockService.sendCode(trimmedPhone);
@@ -60,23 +60,19 @@ public class LoginByPhoneCodeController {
      */
     @PostMapping("doLogin")
     public SaResult doLogin(@RequestParam String phone, @RequestParam String code) {
-        if (phone == null || !PHONE_PATTERN.matcher(phone.trim()).matches()) {
-            return SaResult.error("请输入正确的手机号");
-        }
-        if (code == null || code.trim().isEmpty()) {
-            return SaResult.error("请输入验证码");
-        }
-
+        AjaxError.notIsNull(phone, "手机号不能为空");
+        AjaxError.notIsNull(code == null ? null : (code.trim().isEmpty() ? "" : code), "请输入验证码");
         String trimmedPhone = phone.trim();
         String trimmedCode = code.trim();
+        AjaxError.notTrue(!PHONE_PATTERN.matcher(trimmedPhone).matches(), "请输入正确的手机号");
 
         if (!smsCodeMockService.verifyCode(trimmedPhone, trimmedCode)) {
-            return SaResult.error("验证码错误或已过期，请重新获取");
+            AjaxError.throwMsg("验证码错误或已过期，请重新获取");
         }
 
         SysUser user = sysUserMockDao.getByPhone(trimmedPhone);
         if (user == null) {
-            return SaResult.error("该手机号未注册");
+            AjaxError.throwMsg("该手机号未注册");
         }
 
         // Sa-Token 登录

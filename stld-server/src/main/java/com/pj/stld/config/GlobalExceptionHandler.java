@@ -2,6 +2,7 @@ package com.pj.stld.config;
 
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.util.SaResult;
+import com.pj.stld.utils.AjaxError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,6 +20,11 @@ public class GlobalExceptionHandler {
     public SaResult handleNotLogin(NotLoginException e) {
         // 未登录异常：通常由鉴权（如 StpUtil.checkLogin / @SaCheckLogin）触发
         return SaResult.error("未登录").setCode(401).setMsg(e.getMessage());
+    }
+
+    @ExceptionHandler(AjaxError.class)
+    public SaResult handleAjaxError(AjaxError e) {
+        return SaResult.error(e.getMessage()).setCode(e.getCode());
     }
 
     @ExceptionHandler(Exception.class)

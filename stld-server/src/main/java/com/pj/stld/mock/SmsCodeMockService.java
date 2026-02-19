@@ -1,6 +1,7 @@
 package com.pj.stld.mock;
 
 import cn.dev33.satoken.SaManager;
+import com.pj.stld.utils.AjaxError;
 import cn.dev33.satoken.dao.SaTokenDao;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class SmsCodeMockService {
      * @return 生成的验证码（教学示例可打印到控制台方便测试，生产环境不返回）
      */
     public String sendCode(String phone) {
+        AjaxError.notIsNull(phone, "手机号不能为空");
         String code = generateCode();
         String key = KEY_PREFIX + phone;
 
@@ -61,9 +63,8 @@ public class SmsCodeMockService {
      * @return true=验证通过，false=验证失败或已过期
      */
     public boolean verifyCode(String phone, String code) {
-        if (phone == null || code == null) {
-            return false;
-        }
+        AjaxError.notIsNull(phone, "手机号不能为空");
+        AjaxError.notIsNull(code, "验证码不能为空");
         String key = KEY_PREFIX + phone;
         SaTokenDao dao = SaManager.getSaTokenDao();
         String stored = dao.get(key);

@@ -4,6 +4,7 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.pj.stld.model.SysUser;
+import com.pj.stld.utils.AjaxError;
 import com.pj.stld.utils.SessionConstants;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +29,7 @@ public class AccController {
     @PostMapping("currUserInfo")
     public SaResult currUserInfo() {
         SysUser user = (SysUser) StpUtil.getSession().get(SessionConstants.USER);
-        if (user == null) {
-            // 理论不会出现，保险起见可特殊处理
-            return SaResult.error("用户信息不存在");
-        }
+        AjaxError.notIsNull(user, "用户信息不存在");
         // pwd 字段脱敏，其余字段全部拷贝
         SysUser safeUser = user.copy();
         safeUser.setPwd("******");

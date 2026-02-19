@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.pj.stld.mock.SysUserMockDao;
 import com.pj.stld.model.SysUser;
+import com.pj.stld.utils.AjaxError;
 import com.pj.stld.utils.SessionConstants;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +37,11 @@ public class LoginByPasswordController {
      */
     @PostMapping("doLogin")
     public SaResult doLogin(@RequestParam String name, @RequestParam String pwd) {
+        AjaxError.notIsNull(name, "账号不能为空");
+        AjaxError.notIsNull(pwd, "密码不能为空");
         SysUser user = sysUserMockDao.getByName(name);
         if (user == null || !pwd.equals(user.getPwd())) {
-            return SaResult.error("账号或密码错误");
+            AjaxError.throwMsg("账号或密码错误");
         }
 
         // Sa-Token 登录：标记当前会话登录成功，参数为登录账号的唯一标识（这里使用 userId）
