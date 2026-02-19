@@ -47,7 +47,8 @@ public class AccController {
         SysUser safeUser = user.copy();
         safeUser.setPwd("******");
 
-        return SaResult.data(safeUser);
+        return SaResult.data(safeUser)
+                .set("lastLoginTime", StpUtil.getSession().get(SessionConstants.LOGIN_TIME));
     }
 
     /**
