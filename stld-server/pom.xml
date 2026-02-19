@@ -36,6 +36,25 @@
             <version>${sa-token.version}</version>
         </dependency>
 
+        <!-- Sa-Token 整合 RedisTemplate：将会话等数据持久化到 Redis，支持分布式、重启不丢失 -->
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-redis-template</artifactId>
+            <version>${sa-token.version}</version>
+        </dependency>
+
+        <!-- Spring Boot Data Redis：提供 RedisTemplate、Lettuce 客户端等，供 Sa-Token 持久化使用 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Commons Pool2：提供 Redis 连接池，提升连接复用与性能 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!-- Lombok：通过注解自动生成 getter/setter/toString 等样板代码，简化实体类编写 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
