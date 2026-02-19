@@ -1,0 +1,86 @@
+/**
+ * 邮箱验证码登录页 - 独立样式
+ */
+
+/* 登录框布局：左右居中，上下居中并偏上约 10% */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-container {
+    margin-top: -10vh;
+    min-width: 500px;
+}
+
+.login-form {
+    margin-top: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #1890ff;
+}
+
+/* 验证码输入组：输入框 + 获取验证码按钮 */
+.form-group-code {
+    display: flex;
+    gap: 12px;
+}
+
+.form-group-code input {
+    flex: 1;
+}
+
+.form-group-code .btn-code {
+    flex-shrink: 0;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.form-group-code .btn-code:disabled {
+    background-color: #d9d9d9;
+    cursor: not-allowed;
+    color: #999;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.back-link {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.back-link a {
+    color: #1890ff;
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}

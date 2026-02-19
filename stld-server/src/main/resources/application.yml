@@ -33,6 +33,9 @@ stld:
   sms:
     # 测试模式：为 true 时验证码固定为 123456，便于本地联调
     test-mode: true
+  email:
+    # 测试模式：为 true 时验证码固定为 123456，便于本地联调
+    test-mode: true
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:
