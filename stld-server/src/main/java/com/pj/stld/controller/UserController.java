@@ -21,32 +21,33 @@ import java.util.Map;
  * @since 2026-02-18
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/acc/")
 public class UserController {
 
     /**
-     * 获取当前登录用户信息
+     * 获取当前登录用户信息（返回当前 SysUser，pwd 字段脱敏）
      * 未登录时由 GlobalExceptionHandler 返回 401
      */
     @SaCheckLogin
-    @GetMapping("/info")
-    public SaResult info() {
-        Object loginId = StpUtil.getLoginId();
-        // 可从 Session 中取更多信息，各登录 Controller 登录成功后会写入
+    @PostMapping("currUserInfo")
+    public SaResult currUserInfo() {
         SysUser user = (SysUser) StpUtil.getSession().get(SessionConstants.USER);
-        Object loginTime = StpUtil.getSession().get(SessionConstants.LOGIN_TIME);
+        if (user == null) {
+            // 理论不会出现，保险起见可特殊处理
+            return SaResult.error("用户信息不存在");
+        }
+        // pwd 字段脱敏，其余字段全部拷贝
+        SysUser safeUser = user.copy();
+        safeUser.setPwd("******");
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("username", user != null ? user.getName() : loginId.toString());
-        data.put("loginTime", loginTime != null ? loginTime : "-");
-        return SaResult.data(data);
+        return SaResult.data(safeUser);
     }
 
     /**
      * 注销登录
      */
     @SaCheckLogin
-    @PostMapping("/logout")
+    @PostMapping("logout")
     public SaResult logout() {
         StpUtil.logout();
         return SaResult.ok();

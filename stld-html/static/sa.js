@@ -98,7 +98,8 @@ info: '升级部分API'
             success401: function(res){		// code=401, 代表未登录
                 return layer.confirm("您当前暂未登录，是否立即登录？", {}, function(){
                     layer.closeAll();
-                    return sa.$page.openLogin(cfg.login_url);
+                    return location.href = 'login-select.html';
+                    // return sa.$page.openLogin(cfg.login_url);
                 });
             },
             errorfn: function(xhr, type, errorThrown){		// ajax发生异常时的默认处理函数

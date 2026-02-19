@@ -27,7 +27,7 @@ public class SysUserMockDao {
     static {
         // 用户1
         SysUser user1 = new SysUser();
-        user1.setId(1L);
+        user1.setId(10001L);
         user1.setName("zhangsan");
         user1.setPwd("123456");
         user1.setGender("男");
@@ -38,7 +38,7 @@ public class SysUserMockDao {
 
         // 用户2
         SysUser user2 = new SysUser();
-        user2.setId(2L);
+        user2.setId(10002L);
         user2.setName("wangwu");
         user2.setPwd("123456");
         user2.setGender("女");
@@ -49,7 +49,7 @@ public class SysUserMockDao {
 
         // 用户3
         SysUser user3 = new SysUser();
-        user3.setId(3L);
+        user3.setId(10003L);
         user3.setName("lisi");
         user3.setPwd("123456");
         user3.setGender("男");

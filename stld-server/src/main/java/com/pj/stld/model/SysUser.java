@@ -46,4 +46,22 @@ public class SysUser {
      */
     private String email;
 
+
+    /**
+     * 复制当前 SysUser 对象
+     * @return 拷贝出来的新 SysUser 对象
+     */
+    public SysUser copy() {
+        SysUser user = new SysUser();
+        user.setId(this.id);
+        user.setName(this.name);
+        user.setPwd(this.pwd);
+        user.setGender(this.gender);
+        user.setAge(this.age);
+        user.setPhone(this.phone);
+        user.setEmail(this.email);
+        return user;
+    }
+
+    
 }
