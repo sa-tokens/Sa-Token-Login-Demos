@@ -2,6 +2,60 @@
  * 登录方式选择页 - 独立样式
  */
 
+/* 此页有用户表格，需要更宽的容器 */
+.login-select-container {
+    max-width: 900px;
+}
+
+/* 系统用户列表表格 */
+.user-list-card {
+    margin-bottom: 24px;
+}
+
+.user-list-title {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.user-list-wrap {
+    overflow-x: auto;
+}
+
+.user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.user-list-table th,
+.user-list-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border: 1px solid #e8e8e8;
+}
+
+.user-list-table th {
+    background-color: #fafafa;
+    font-weight: 600;
+    color: #333;
+}
+
+.user-list-table td {
+    color: #666;
+}
+
+.user-list-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.user-list-table .no-data {
+    text-align: center;
+    color: #999;
+    padding: 24px;
+}
+
 .page-desc {
     margin: 0 0 24px 0;
     text-align: center;

@@ -3,9 +3,11 @@ package com.pj.stld.controller;
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import com.pj.stld.mock.SysUserMockDao;
 import com.pj.stld.model.SysUser;
 import com.pj.stld.utils.AjaxError;
 import com.pj.stld.utils.SessionConstants;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/acc/")
+@RequiredArgsConstructor
 public class AccController {
+
+    private final SysUserMockDao sysUserMockDao;
+
+    /**
+     * 获取系统所有用户信息（含账号、密码等，仅用于教学演示）
+     */
+    @PostMapping("userList")
+    public SaResult userList() {
+        return SaResult.data(sysUserMockDao.getAll());
+    }
 
     /**
      * 获取当前登录用户信息（返回当前 SysUser，pwd 字段脱敏）

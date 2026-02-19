@@ -9,15 +9,38 @@
     <link rel="stylesheet" href="static/kj/layer/theme/default/layer.css">
 </head>
 <body>
-    <div class="page-container">
+    <div class="page-container login-select-container">
+        <!-- 系统用户列表（教学参考：便于学习者参考账号密码进行登录测试） -->
+        <div class="card user-list-card">
+            <h2 class="user-list-title">📋 系统用户列表（测试参考）</h2>
+            <div class="user-list-wrap">
+                <table class="user-list-table" id="userListTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>密码</th>
+                            <th>性别</th>
+                            <th>年龄</th>
+                            <th>手机号</th>
+                            <th>邮箱</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 由 JS 动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="card">
             <h1 class="page-title">选择登录方式</h1>
             <p class="page-desc">请选择一种方式登录系统</p>
 
             <!-- 登录方式列表（卡片/按钮形式） -->
             <div class="login-type-list">
-                <a href="login-pages/login-by-password.html" class="login-type-item">账号密码登录</a>
-                <a href="login-pages/login-by-phone-code.html" class="login-type-item">手机号验证码登录</a>
+                <a href="login-pages/login-by-password.html" class="login-type-item" target="_blank">账号密码登录</a>
+                <a href="login-pages/login-by-phone-code.html" class="login-type-item" target="_blank">手机号验证码登录</a>
                 <!-- 后续添加：图形验证码登录、邮箱验证码登录等 -->
             </div>
         </div>
@@ -27,5 +50,31 @@
     <script src="static/kj/jquery.min.js"></script>
     <script src="static/kj/layer/layer.js"></script>
     <script src="static/sa.js"></script>
+    <script>
+        $(function () {
+            sa.ajax('/acc/userList', {}, function (res) {
+                var list = res.data || [];
+                var tbody = $('#userListTable tbody');
+                tbody.empty();
+                if (list.length === 0) {
+                    tbody.append('<tr><td colspan="7" class="no-data">暂无用户数据</td></tr>');
+                } else {
+                    list.forEach(function (u) {
+                        tbody.append(
+                            '<tr>' +
+                            '<td>' + (u.id || '-') + '</td>' +
+                            '<td>' + (u.name || '-') + '</td>' +
+                            '<td>' + (u.pwd || '-') + '</td>' +
+                            '<td>' + (u.gender || '-') + '</td>' +
+                            '<td>' + (u.age != null ? u.age : '-') + '</td>' +
+                            '<td>' + (u.phone || '-') + '</td>' +
+                            '<td>' + (u.email || '-') + '</td>' +
+                            '</tr>'
+                        );
+                    });
+                }
+            }, { msg: null });
+        });
+    </script>
 </body>
 </html>
