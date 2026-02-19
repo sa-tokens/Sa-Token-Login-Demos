@@ -23,23 +23,27 @@
     </properties>
 
     <dependencies>
+        <!-- Spring Boot Web：提供 Web 开发能力（REST、Controller、内嵌 Tomcat 等） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Sa-Token：轻量级 Java 权限认证框架，用于登录、鉴权、会话管理等 -->
         <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>${sa-token.version}</version>
         </dependency>
 
+        <!-- Lombok：通过注解自动生成 getter/setter/toString 等样板代码，简化实体类编写 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <!-- Spring Boot Test：单元测试与集成测试依赖，包含 JUnit、Mockito 等 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
