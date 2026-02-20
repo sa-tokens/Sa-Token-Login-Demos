@@ -1,0 +1,32 @@
+/**
+ * 临时授权码登录页 - 独立样式
+ */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-container {
+    margin-top: -10vh;
+    min-width: 400px;
+}
+
+.page-title {
+    margin-bottom: 8px;
+}
+
+.page-desc {
+    font-size: 14px;
+    color: #666;
+}
+
+.fail-actions {
+    margin-top: 24px;
+}
+
+.fail-actions .btn-block {
+    width: 100%;
+}

@@ -30,12 +30,15 @@ spring:
 
 ############## 教学示例自定义配置 ##############
 stld:
-  sms:
-    # 测试模式：为 true 时验证码固定为 123456，便于本地联调
-    test-mode: true
-  email:
-    # 测试模式：为 true 时验证码固定为 123456，便于本地联调
-    test-mode: true
+    sms:
+        # 测试模式：为 true 时验证码固定为 123456，便于本地联调
+        test-mode: true
+    email:
+        # 测试模式：为 true 时验证码固定为 123456，便于本地联调
+        test-mode: true
+    temp-code:
+        # 临时授权码登录页的完整地址（由后端配置，前端不可提交，供其他模块复用）
+        redirect-url: http://localhost:3002/login-pages/login-by-temp-code.html
 
 ############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
 sa-token:

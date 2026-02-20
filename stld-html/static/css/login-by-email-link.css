@@ -1,0 +1,80 @@
+/**
+ * 邮箱点击链接登录页 - 独立样式
+ */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-container {
+    margin-top: -10vh;
+    min-width: 500px;
+}
+
+.login-form {
+    margin-top: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #1890ff;
+}
+
+.form-tip {
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.back-link {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.back-link a {
+    color: #1890ff;
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+.send-success {
+    margin-top: 20px;
+}
+
+.send-success-text {
+    font-size: 14px;
+    color: #52c41a;
+    line-height: 1.6;
+}

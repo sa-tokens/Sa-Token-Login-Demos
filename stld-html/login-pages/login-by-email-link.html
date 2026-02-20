@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮箱点击链接登录 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="../static/kj/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/login-by-email-link.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title">邮箱点击链接登录</h1>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="email">请输入您的邮箱</label>
+                    <input type="email" id="email" name="email" placeholder="请输入邮箱地址" required>
+                </div>
+                <p class="form-tip">当前为模拟环境，无法真实发送邮件，请查看后端控制台打印输出的超链接地址完成登录</p>
+                <button type="submit" class="btn btn-primary btn-block">下一步</button>
+            </form>
+            <div id="sendSuccess" class="send-success" style="display: none;">
+                <p class="send-success-text">邮件已发送（模拟），请查看后端控制台输出的超链接地址完成登录</p>
+            </div>
+
+            <p class="back-link"><a href="../login-select.html">← 返回选择其他登录方式</a></p>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库） -->
+    <script src="../static/kj/jquery.min.js"></script>
+    <script src="../static/kj/layer/layer.js"></script>
+    <script src="../static/sa.js"></script>
+    <script>
+        $(function () {
+            function isValidEmail(email) {
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+            }
+
+            $('#login-form').on('submit', function (e) {
+                e.preventDefault();
+
+                var email = $('#email').val().trim();
+                if (!email) {
+                    sa.error('请输入邮箱地址');
+                    return;
+                }
+                if (!isValidEmail(email)) {
+                    sa.error('请输入正确的邮箱地址');
+                    return;
+                }
+
+                sa.ajax('/login/email-link/sendLink', { email: email }, function () {
+                    $('#login-form').hide();
+                    $('#sendSuccess').show();
+                }, {
+                    msg: '发送中...',
+                    success500: function (res) {
+                        sa.error(res.msg || '发送失败');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

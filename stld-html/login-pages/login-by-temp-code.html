@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>临时授权码登录 - Sa-Token 登录示例</title>
+    <link rel="stylesheet" href="../static/kj/layer/theme/default/layer.css">
+    <link rel="stylesheet" href="../static/css/common.css">
+    <link rel="stylesheet" href="../static/css/login-by-temp-code.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="card">
+            <h1 class="page-title" id="pageTitle">正在登录...</h1>
+            <p class="page-desc" id="statusText">正在验证授权码，请稍候</p>
+            <div id="failActions" class="fail-actions" style="display: none;">
+                <a href="../login-select.html" class="btn btn-primary btn-block">去登录选择页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 jQuery、layer、sa.js（均使用本地库） -->
+    <script src="../static/kj/jquery.min.js"></script>
+    <script src="../static/kj/layer/layer.js"></script>
+    <script src="../static/sa.js"></script>
+    <script>
+        $(function () {
+            // 从 URL 获取 code 参数（login-by-temp-code.html?code=xxx）
+            function getCodeFromUrl() {
+                var params = new URLSearchParams(window.location.search);
+                return params.get('code') || '';
+            }
+
+            var code = getCodeFromUrl();
+            if (!code) {
+                sa.error('缺少授权码，请通过邮件中的链接访问');
+                $('#pageTitle').text('登录失败');
+                $('#statusText').text('缺少授权码');
+                $('#failActions').show();
+                return;
+            }
+
+            sa.ajax('/login/temp-code/doLogin', { code: code }, function (res) {
+                sa.saveToken(res.token);
+                sa.msg('欢迎你：' + res.username);
+                $('#pageTitle').text('登录成功');
+                $('#statusText').text('正在跳转...');
+                setTimeout(function () {
+                    window.location.href = '../index.html';
+                }, 600);
+            }, {
+                msg: '登录中...',
+                success500: function (res) {
+                    sa.error(res.msg || '登录失败');
+                    $('#pageTitle').text('登录失败');
+                    $('#statusText').text(res.msg || '登录失败');
+                    $('#failActions').show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -24,7 +24,7 @@
 | 手机验证码登录 | `LoginByPhoneCodeController` | `login-by-phone-code.html` | ✅ 已实现 |
 | 邮箱验证码登录 | `LoginByEmailCodeController` | `login-by-email-code.html` | ✅ 已实现 |
 | 扫码登录 | - | - | 📋 待开发 |
-| 邮箱点击链接注册登录 | - | - | 📋 待开发 |
+| 邮箱点击链接登录 | `LoginByEmailLinkController` + `LoginByTempCodeController` | `login-by-email-link.html` + `login-by-temp-code.html` | ✅ 已实现 |
 
 ---
 
@@ -74,7 +74,9 @@ sa-token-login-demos/
 │   │   ├── login-by-password.html
 │   │   ├── login-by-captcha.html
 │   │   ├── login-by-phone-code.html
-│   │   └── login-by-email-code.html
+│   │   ├── login-by-email-code.html
+│   │   ├── login-by-email-link.html
+│   │   └── login-by-temp-code.html
 │   ├── static/
 │   │   ├── css/                   # 样式文件
 │   │   ├── kj/                    # jQuery、layer 等第三方库
@@ -125,6 +127,8 @@ python -m http.server 8080
 登录方式选择页会展示**系统用户列表**，包含测试用的账号、密码、手机号等，便于本地联调。
 
 手机验证码登录、邮箱验证码登录在 `stld.sms.test-mode: true`、`stld.email.test-mode: true` 时，验证码固定为 **123456**。
+
+邮箱点击链接登录：在 `login-by-email-link.html` 输入邮箱后，后端会在控制台打印登录链接（模拟邮件），复制该链接到浏览器访问即可完成登录。登录页地址由 `stld.temp-code.redirect-url` 配置，若前端端口非 8080，请修改该配置。
 
 ---
 
