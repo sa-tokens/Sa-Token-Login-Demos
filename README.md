@@ -109,17 +109,21 @@ mvn spring-boot:run
 
 ### 3️⃣ 访问前端
 
-前端为纯静态 HTML，可直接用浏览器打开，或用任意静态服务器托管：
+前端为纯静态 HTML，可直接在本地浏览器打开首页，或使用指定工具托管静态文件进行开发预览：
 
 ```bash
 # 方式一：直接用浏览器打开
-# 打开 stld-html/login-select.html
+# 推荐：双击 stld-html 目录下的 index.html（首页）
+#       未登录会提示跳转到登录方式选择页
 
-# 方式二：使用 Python 起一个简单服务器（示例）
-cd stld-html
-python -m http.server 8080
-# 访问 http://localhost:8080/login-select.html
+# 方式二：使用 browser-sync 启动本地开发服务器（推荐端口 3002）
+cd stld-html & browser-sync start --server --files "" --port 3002
+# 访问 http://localhost:3002/index.html
+
+# 方式三：直接双击根目录下的 preview-html.bat （Windows 推荐）
+# 自动打开 http://localhost:3002/index.html
 ```
+
 
 > ⚠️ **注意**：前端 Ajax 会请求 `localhost:8081`，需确保后端已启动；若端口或地址不同，需修改前端的 `sa.js` 或接口地址配置。
 
