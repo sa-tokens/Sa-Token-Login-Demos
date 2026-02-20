@@ -23,8 +23,9 @@
 | 图形验证码登录 | `LoginByCaptchaController` | `login-by-captcha.html` | ✅ 已实现 |
 | 手机验证码登录 | `LoginByPhoneCodeController` | `login-by-phone-code.html` | ✅ 已实现 |
 | 邮箱验证码登录 | `LoginByEmailCodeController` | `login-by-email-code.html` | ✅ 已实现 |
+| 邮箱点击链接登录 | `LoginByEmailLinkController` | `login-by-email-link.html` | ✅ 已实现 |
+| 临时授权码登录 | `LoginByTempCodeController` | `login-by-temp-code.html` | ✅ 已实现 |
 | 扫码登录 | - | - | 📋 待开发 |
-| 邮箱点击链接登录 | `LoginByEmailLinkController` + `LoginByTempCodeController` | `login-by-email-link.html` + `login-by-temp-code.html` | ✅ 已实现 |
 
 ---
 
